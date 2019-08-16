@@ -3,6 +3,12 @@ import os
 import sys
 import re
 
+PATH_OF_GIT_REPO = r'.git'  # make sure .git folder is properly configured
+COMMIT_MESSAGE = input("Specify a comment please: ")
+COMMIT_MESSAGE = str(COMMIT_MESSAGE).strip()
+CFG = f"{PATH_OF_GIT_REPO}/config"
+repo = Repo(PATH_OF_GIT_REPO)
+
 def git_push(PATH_OF_GIT_REPO, REMOTE):
     try:
         repo = Repo(PATH_OF_GIT_REPO)
@@ -15,7 +21,6 @@ def git_push(PATH_OF_GIT_REPO, REMOTE):
         print('Successfully pushed to: ', REMOTE)
     except Exception as e:
         print(f'Some error occured while pushing the code to {REMOTE}: ',e)
-
 
 def readcfg(CFG):
     # get upstreams from config
@@ -36,16 +41,10 @@ def readcfg(CFG):
         sys.exit(1)
     return res
 
-PATH_OF_GIT_REPO = r'.git'  # make sure .git folder is properly configured
-COMMIT_MESSAGE = input("Specify a comment please: ")
-COMMIT_MESSAGE = str(COMMIT_MESSAGE).strip()
-
-CFG = f"{PATH_OF_GIT_REPO}/config"
-
 w = readcfg(CFG)
-repo = Repo(PATH_OF_GIT_REPO)
-repo.index.commit(COMMIT_MESSAGE)
 
 for REMOTE in w:
     if REMOTE != 'prepod':
         git_push(PATH_OF_GIT_REPO, REMOTE)
+
+repo.index.commit(COMMIT_MESSAGE)
