@@ -37,6 +37,7 @@ def readcfg(CFG):
 
 #tst
 #temp test
+#44444
 PATH_OF_GIT_REPO = r'.git'  # make sure .git folder is properly configured
 COMMIT_MESSAGE = input("Specify a comment please: ")
 CFG = f"{PATH_OF_GIT_REPO}/config"
