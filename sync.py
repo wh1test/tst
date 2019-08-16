@@ -35,7 +35,7 @@ def readcfg(CFG):
         sys.exit(1)
     return res
 
-#tst
+#tst 123
 PATH_OF_GIT_REPO = r'.git'  # make sure .git folder is properly configured
 COMMIT_MESSAGE = input("Specify a comment please: ")
 CFG = f"{PATH_OF_GIT_REPO}/config"
