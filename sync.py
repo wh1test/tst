@@ -43,8 +43,9 @@ def readcfg(CFG):
 
 w = readcfg(CFG)
 
+repo.index.commit(COMMIT_MESSAGE)
+
 for REMOTE in w:
     if REMOTE != 'prepod':
         git_push(PATH_OF_GIT_REPO, REMOTE)
 
-repo.index.commit(COMMIT_MESSAGE)
