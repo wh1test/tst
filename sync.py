@@ -3,18 +3,26 @@ import os
 import sys
 import re
 
+'''
+This scrips pushes current branch to all remote repositories except "prepod"
+How-to:
+1. Go to you git working directory (where .git folder is being located)
+2. Run the script: python sync.py
+3. Provide comment message.
+'''
+
 PATH_OF_GIT_REPO = r'.git'  # make sure .git folder is properly configured
 COMMIT_MESSAGE = input("Specify a comment please: ")
 COMMIT_MESSAGE = str(COMMIT_MESSAGE).strip()
 CFG = f"{PATH_OF_GIT_REPO}/config"
 repo = Repo(PATH_OF_GIT_REPO)
 
-def git_push(PATH_OF_GIT_REPO, REMOTE):
+def git_push(PATH_OF_GIT_REPO, REMOTE, COMMIT_MESSAGE):
     try:
         repo = Repo(PATH_OF_GIT_REPO)
-        REMOTE = str(REMOTE).strip()
         repo.git.add(update=True)
         #repo.git.add()
+        repo.index.commit(COMMIT_MESSAGE)
         origin = repo.remote(name=REMOTE)
         #origin.fetch()
         origin.push(force=True)
@@ -43,9 +51,8 @@ def readcfg(CFG):
 
 w = readcfg(CFG)
 
-repo.index.commit(COMMIT_MESSAGE)
-
 for REMOTE in w:
+    REMOTE = str(REMOTE).strip()
     if REMOTE != 'prepod':
-        git_push(PATH_OF_GIT_REPO, REMOTE)
+        git_push(PATH_OF_GIT_REPO, REMOTE, COMMIT_MESSAGE)
 
