@@ -6,7 +6,7 @@ import re
 def git_push(PATH_OF_GIT_REPO, REMOTE):
     try:
         repo = Repo(PATH_OF_GIT_REPO)
-        #repo.git.add(update=True)
+        repo.git.add(update=True)
         #repo.git.add()
         origin = repo.remote(name=(str(REMOTE)))
         #origin.fetch()
